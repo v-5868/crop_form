@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Calendar Table Input Form</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <form target="_blank" method="post" autocomplete="on" id="crop-form">
+        <div class="main">
+            <div>
+                <label for="cropName">Crop Name:</label>
+                <input type="text" name="cropName" id="cropName" placeholder="Enter crop name">
+            </div>
+
+            <div style="margin-left: 42px;">
+                <label for="No-of-stage">No. of Stages:</label>
+                <input type="text" name="No-of-stage" id="No-of-stage" placeholder="Enter the number of stages">
+            </div>
+        </div>
+
+        <div id="Stage-container">
+            <fieldset>
+                <legend>Stage</legend>
+                <div class="flex-container">
+                    <div>
+                        <label>Stage Name:</label>
+                        <input type="text" name="stages[]" placeholder="Stage Name">
+                    </div>
+                    <div>
+                        <label>Weeks:</label>
+                        <input type="text" name="weeks[]" placeholder="Enter the Weeks">
+                    </div>
+                    <div>
+                        <label>Enter no. of tasks:</label>
+                        <input type="text" name="No-of-task[]" placeholder="Enter No. of tasks">
+                    </div>
+                </div>
+                <br><br>
+                <div class="Task-container">
+                    <fieldset>
+                        <legend>Task</legend>
+                        <div style="display: flex; flex-direction: column">
+                            <label>Task Name:</label>
+                            <input type="text" name="task-name[]" placeholder="Task name">
+                            <label>Upload Image:</label>
+                            <input type="file" name="myfile[]">
+                        </div>
+                        <div>
+                            <label>Task Description:</label><br>
+                            <textarea name="Description[]" rows="4" cols="40"></textarea>
+                        </div>
+                        <div style="display: flex; flex-direction: column">
+                            <input type="text" name="task-weeks[]" placeholder="Enter weeks">
+                            <input type="text" name="inputs[]" placeholder="Enter inputs">
+                            <input type="text" name="equipment[]" placeholder="Enter Equipment">
+                        </div>
+                    </fieldset>
+                    <div><button class="add-task-btn" type="button" onclick="addTask(this)">Add Task</button></div>
+                </div>
+            </fieldset>
+        </div>
+        <br><br>
+        <button class="btn" type="submit">Send</button>
+    </form>
+
+    <button class="add-stage-btn" type="button" onclick="addStage()">Add Stage</button>
+
+    <script>
+        function addStage() {
+            const stageContainer = document.getElementById('Stage-container');
+
+            const stageFieldset = document.createElement('fieldset');
+            const stageLegend = document.createElement('legend');
+            stageLegend.textContent = 'Stage';
+
+            const flexContainer = document.createElement('div');
+            flexContainer.classList.add('flex-container');
+
+            flexContainer.innerHTML = `
+                <div>
+                    <label>Stage Name:</label>
+                    <input type="text" name="stages[]" placeholder="Stage Name">
+                </div>
+                <div>
+                    <label>Weeks:</label>
+                    <input type="text" name="weeks[]" placeholder="Enter the Weeks">
+                </div>
+                <div>
+                    <label>Enter no. of tasks:</label>
+                    <input type="text" name="No-of-task[]" placeholder="Enter No. of tasks">
+                </div>
+            `;
+
+            stageFieldset.appendChild(stageLegend);
+            stageFieldset.appendChild(flexContainer);
+
+            const taskContainer = document.createElement('div');
+            taskContainer.classList.add('Task-container');
+
+            taskContainer.innerHTML = `
+                <fieldset>
+                    <legend>Task</legend>
+                    <div style="display: flex; flex-direction: column">
+                        <label>Task Name:</label>
+                        <input type="text" name="task-name[]" placeholder="Task name">
+                        <label>Upload Image:</label>
+                        <input type="file" name="myfile[]">
+                    </div>
+                    <div>
+                        <label>Task Description:</label><br>
+                        <textarea name="Description[]" rows="4" cols="40"></textarea>
+                    </div>
+                    <div style="display: flex; flex-direction: column">
+                        <input type="text" name="task-weeks[]" placeholder="Enter weeks">
+                        <input type="text" name="inputs[]" placeholder="Enter inputs">
+                        <input type="text" name="equipment[]" placeholder="Enter Equipment">
+                    </div>
+                </fieldset>
+                <div><button class="add-task-btn" type="button" onclick="addTask(this)">Add Task</button></div>
+            `;
+
+            stageFieldset.appendChild(taskContainer);
+            stageContainer.appendChild(stageFieldset);
+        }
+
+        function addTask(button) {
+            const taskContainer = button.parentNode.parentNode;
+
+            const taskFieldset = document.createElement('fieldset');
+            const taskLegend = document.createElement('legend');
+            taskLegend.textContent = 'Task';
+
+            const taskHTML = `
+                <div style="display: flex; flex-direction: column">
+                    <label>Task Name:</label>
+                    <input type="text" name="task-name[]" placeholder="Task name">
+                    <label>Upload Image:</label>
+                    <input type="file" name="myfile[]">
+                </div>
+                <div>
+                    <label>Task Description:</label><br>
+                    <textarea name="Description[]" rows="4" cols="40"></textarea>
+                </div>
+                <div style="display: flex; flex-direction: column">
+                    <input type="text" name="task-weeks[]" placeholder="Enter weeks">
+                    <input type="text" name="inputs[]" placeholder="Enter inputs">
+                    <input type="text" name="equipment[]" placeholder="Enter Equipment">
+                </div>
+            `;
+
+            taskFieldset.innerHTML = `<legend>Task</legend>${taskHTML}`;
+            taskContainer.insertBefore(taskFieldset, button.parentNode);
+        }
+    </script>
+</body>
+
+</html>
